@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "313526866154",
+    "firebase_url": "https://mindyourcash-c4362.firebaseio.com",
+    "project_id": "mindyourcash-c4362",
+    "storage_bucket": "mindyourcash-c4362.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:313526866154:android:f93147c4a0959307c48793",
+        "android_client_info": {
+          "package_name": "nu.mad.mindyourcash"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "313526866154-riism6ifu2age5umuurpu3lo1f4qpf42.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7xlJorVtgjE5BnS6CCViVV8elO0s1RmU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "313526866154-riism6ifu2age5umuurpu3lo1f4qpf42.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
