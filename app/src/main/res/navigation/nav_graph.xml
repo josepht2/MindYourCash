@@ -14,6 +14,19 @@
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_RegisterFragment"
+            app:destination="@id/RegisterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/RegisterFragment"
+        android:name="nu.mad.mindyourcash.RegisterFragment"
+        android:label="@string/register_fragment_label"
+        tools:layout="@layout/register_fragment">
+
+        <action
+            android:id="@+id/action_RegisterFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
