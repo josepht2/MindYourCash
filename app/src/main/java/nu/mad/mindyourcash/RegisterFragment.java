@@ -10,11 +10,17 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+
+import nu.mad.mindyourcash.models.User;
 
 public class RegisterFragment extends Fragment {
 
@@ -41,7 +47,7 @@ public class RegisterFragment extends Fragment {
         view.findViewById(R.id.register_submit_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username = usernameEditText.getText().toString().trim();
+                final String username = usernameEditText.getText().toString().trim();
 
                 if (username.isEmpty()) {
                     usernameEditText.setError("Please enter a username.");
@@ -52,7 +58,37 @@ public class RegisterFragment extends Fragment {
                         new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                isUsers = snapshot.getValue() != null;
+                                boolean isUsernameTaken = false;
+                                if (snapshot.getValue() != null) {
+                                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                        User storedUser = dataSnapshot.getValue(User.class);
+                                        if (storedUser.username.equals(username)) {
+                                            usernameEditText.setError("This username is taken.");
+                                            isUsernameTaken = true;
+                                            break;
+                                        }
+                                    }
+
+                                    if (!isUsernameTaken) {
+                                        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(
+                                                getActivity(), new OnSuccessListener<InstanceIdResult>() {
+                                                    @Override
+                                                    public void onSuccess(InstanceIdResult instanceIdResult) {
+                                                        String token = instanceIdResult.getToken();
+                                                        User user = new User(username, token);
+                                                        MainActivity.user = user;
+                                                        databaseReference.child("users").child(username).setValue(user);
+                                                        NavHostFragment.findNavController(RegisterFragment.this)
+                                                                .navigate(R.id.action_RegisterFragment_to_SecondFragment);
+                                                        Snackbar.make(getActivity().findViewById(R.id.mainactivity_layout),
+                                                                "Successfully registered.", Snackbar.LENGTH_LONG).show();
+                                                    }
+                                                }
+                                        );
+                                    }
+                                } else {
+                                    usernameEditText.setError("App is currently offline.");
+                                }
                             }
 
                             @Override
@@ -61,29 +97,6 @@ public class RegisterFragment extends Fragment {
                             }
                         }
                 );
-
-                if (isUsers) {
-                    databaseReference.child("users").child(username).addListenerForSingleValueEvent(
-                            new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if (snapshot.getValue() != null) {
-                                        usernameEditText.setError("This username is taken.");
-                                    } else {
-                                        NavHostFragment.findNavController(RegisterFragment.this)
-                                                .navigate(R.id.action_RegisterFragment_to_SecondFragment);
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                }
-                            }
-                    );
-                } else {
-                    usernameEditText.setError("App is currently offline.");
-                }
             }
         });
     }
