@@ -75,7 +75,11 @@ public class AddAccountDialogFragment extends DialogFragment {
 
                         if (isEmptyAccountName) {
                             accountNameEditText.setError("Please enter an account name.");
-                        } else if (accountNamesSet.contains(newAccountName)) {
+                        } else if (accountNamesSet.contains(newAccountName
+                                .replaceAll(" ", "")
+                                .replaceAll("\n", "")
+                                .replaceAll("\t", "")
+                                .toLowerCase())) {
                             accountNameEditText.setError("You are already using this account name.");
                         } else {
                             DatabaseReference databaseReference = FirebaseDatabase.getInstance()

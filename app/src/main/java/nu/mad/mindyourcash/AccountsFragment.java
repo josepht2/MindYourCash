@@ -17,7 +17,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.LinkedHashSet;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import nu.mad.mindyourcash.models.User;
@@ -25,6 +27,7 @@ import nu.mad.mindyourcash.models.User;
 public class AccountsFragment extends Fragment implements View.OnClickListener {
 
     private User user;
+    private List<String> accountNamesList;
     private Set<String> accountNamesSet;
     private DatabaseReference databaseReference;
     private ListView listView;
@@ -42,7 +45,8 @@ public class AccountsFragment extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
 
         this.user = MainActivity.user;
-        this.accountNamesSet = new LinkedHashSet<>();
+        this.accountNamesList = new ArrayList<>();
+        this.accountNamesSet = new HashSet<>();
         this.databaseReference = FirebaseDatabase.getInstance().getReference();
         this.listView = view.findViewById(R.id.accounts_listview);
 
@@ -74,13 +78,19 @@ public class AccountsFragment extends Fragment implements View.OnClickListener {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.getValue() != null) {
                             for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                accountNamesSet.add(dataSnapshot.child("accountName")
+                                accountNamesList.add(dataSnapshot.child("accountName")
                                         .getValue().toString());
+                                accountNamesSet.add(dataSnapshot.child("accountName")
+                                        .getValue().toString()
+                                        .replaceAll(" ", "")
+                                        .replaceAll("\n", "")
+                                        .replaceAll("\t", "")
+                                        .toLowerCase());
                             }
 
                             // resource: https://abhiandroid.com/ui/listview
                             AccountsListViewAdapter accountsListViewAdapter = new
-                                    AccountsListViewAdapter(getContext(), accountNamesSet.toArray());
+                                    AccountsListViewAdapter(getContext(), accountNamesList.toArray());
                             listView.setAdapter(accountsListViewAdapter);
                         }
                     }
