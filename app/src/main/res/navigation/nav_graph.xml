@@ -12,8 +12,8 @@
         tools:layout="@layout/fragment_first">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_FirstFragment_to_AccountsFragment"
+            app:destination="@id/AccountsFragment" />
         <action
             android:id="@+id/action_FirstFragment_to_RegisterFragment"
             app:destination="@id/RegisterFragment" />
@@ -25,8 +25,14 @@
         tools:layout="@layout/register_fragment">
 
         <action
-            android:id="@+id/action_RegisterFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_RegisterFragment_to_AccountsFragment"
+            app:destination="@id/AccountsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/AccountsFragment"
+        android:name="nu.mad.mindyourcash.AccountsFragment"
+        android:label="@string/accounts_fragment_label"
+        tools:layout="@layout/accounts_fragment">
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"

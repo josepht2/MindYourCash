@@ -31,7 +31,6 @@ import nu.mad.mindyourcash.models.User;
 
 public class MainActivity extends AppCompatActivity {
 
-    private DatabaseReference databaseReference;
     protected static User user;
 
     @Override
@@ -40,54 +39,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-
-        // resource: https://stackoverflow.com/questions/51929290/is-it-possible-to-set-startdestination-conditionally-using-android-navigation-ar/51961843
-        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
-        final NavController navController = navHostFragment.getNavController();
-
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(
-                this, new OnSuccessListener<InstanceIdResult>() {
-                    @Override
-                    public void onSuccess(InstanceIdResult instanceIdResult) {
-                        final String token = instanceIdResult.getToken();
-
-                        databaseReference.child("users").addListenerForSingleValueEvent(
-                                new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                            User storedUser = dataSnapshot.getValue(User.class);
-                                            if (storedUser.token.equals(token)) {
-                                                user = storedUser;
-
-                                                // resource: https://stackoverflow.com/questions/51929290/is-it-possible-to-set-startdestination-conditionally-using-android-navigation-ar
-                                                navController.navigate(R.id.action_FirstFragment_to_SecondFragment);
-
-                                                break;
-                                            }
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                    }
-                                }
-                        );
-                    }
-                }
-        );
     }
 
     @Override

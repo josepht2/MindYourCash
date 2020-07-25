@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- https://stackoverflow.com/questions/28651418/how-to-add-floating-action-button-on-top-of-scrollview -->
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/accounts_coordinatorlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- https://stackoverflow.com/questions/40562344/how-to-add-scroll-in-fragment/43188084#43188084 -->
+    <!--    <ScrollView-->
+    <!--        android:id="@+id/accounts_scrollview"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:fillViewport="true">-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/accounts_constraintlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".AccountsFragment">
+
+        <TextView
+            android:id="@+id/accounts_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/accounts"
+            app:layout_constraintBottom_toTopOf="@id/accounts_listview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- resource: https://abhiandroid.com/ui/listview -->
+        <ListView
+            android:id="@+id/accounts_listview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:divider="#000000"
+            android:dividerHeight="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/accounts_textview" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--    </ScrollView>-->
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/accounts_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_input_add" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
