@@ -79,7 +79,7 @@ public class RegisterFragment extends Fragment {
                                                         MainActivity.user = user;
                                                         databaseReference.child("users").child(username).setValue(user);
                                                         NavHostFragment.findNavController(RegisterFragment.this)
-                                                                .navigate(R.id.action_RegisterFragment_to_SecondFragment);
+                                                                .navigate(R.id.action_RegisterFragment_to_AccountsFragment);
                                                         Snackbar.make(getActivity().findViewById(R.id.mainactivity_layout),
                                                                 "Successfully registered.", Snackbar.LENGTH_LONG).show();
                                                     }
