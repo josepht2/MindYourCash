@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_RegisterFragment"
             app:destination="@id/RegisterFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_LineChartFragment"
+            app:destination="@id/LineChartFragment" />
     </fragment>
     <fragment
         android:id="@+id/RegisterFragment"
@@ -43,14 +46,11 @@
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
-        <action
-            android:id="@+id/action_SecondFragment_to_LineChartFragment"
-            app:destination="@id/LineChartFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/LineChartFragment"
-        android:name="nu.mad.mindyourcash.SecondFragment"
+        android:name="nu.mad.mindyourcash.LineChartFragment"
         android:label="@string/line_chart"
         tools:layout="@layout/fragment_line_chart">
     </fragment>
