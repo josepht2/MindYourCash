@@ -1,5 +1,6 @@
 package nu.mad.mindyourcash;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -50,9 +51,9 @@ public class LineChartFragment extends Fragment {
         entries.add(new Entry(6,500));
         entries.add(new Entry(7,800));
 
-        LineDataSet dataSet = new LineDataSet(entries, "Label"); // add entries to data set
-        dataSet.setColor(1);
-        dataSet.setValueTextColor(1); // styling ...
+        LineDataSet dataSet = new LineDataSet(entries, "Months"); // add entries to data set
+        dataSet.setColor(Color.BLACK);
+        dataSet.setValueTextColor(Color.BLACK); // styling ...
 
         LineData lineData = new LineData(dataSet);
         chart.setData(lineData);
