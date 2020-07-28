@@ -90,7 +90,8 @@ public class AccountsFragment extends Fragment implements View.OnClickListener {
 
                             // resource: https://abhiandroid.com/ui/listview
                             AccountsListViewAdapter accountsListViewAdapter = new
-                                    AccountsListViewAdapter(getContext(), accountNamesList.toArray());
+                                    AccountsListViewAdapter(getContext(), accountNamesList.toArray(),
+                                    AccountsFragment.this);
                             listView.setAdapter(accountsListViewAdapter);
                         }
                     }

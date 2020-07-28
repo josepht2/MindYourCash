@@ -7,17 +7,22 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
+
 // resource: https://abhiandroid.com/ui/listview
 public class AccountsListViewAdapter extends BaseAdapter {
 
     private Context context;
     private Object[] accountNamesArray;
     private LayoutInflater layoutInflater;
+    private Fragment fragment;
 
-    public AccountsListViewAdapter(Context context, Object[] accountNamesArray) {
+    public AccountsListViewAdapter(Context context, Object[] accountNamesArray, Fragment fragment) {
         this.context = context;
         this.accountNamesArray = accountNamesArray;
-        layoutInflater = LayoutInflater.from(context);
+        this.layoutInflater = LayoutInflater.from(context);
+        this.fragment = fragment;
     }
 
     @Override
@@ -36,10 +41,18 @@ public class AccountsListViewAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         view = layoutInflater.inflate(R.layout.accounts_listview, null);
         TextView accountName = view.findViewById(R.id.accounts_listview_textview);
         accountName.setText(accountNamesArray[i].toString());
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainActivity.account = accountNamesArray[i].toString();
+                NavHostFragment.findNavController(fragment)
+                        .navigate(R.id.action_AccountsFragment_to_PurchasesFragment);
+            }
+        });
         return view;
     }
 

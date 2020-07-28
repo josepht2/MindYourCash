@@ -32,6 +32,7 @@ import nu.mad.mindyourcash.models.User;
 public class MainActivity extends AppCompatActivity {
 
     protected static User user;
+    protected static String account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
