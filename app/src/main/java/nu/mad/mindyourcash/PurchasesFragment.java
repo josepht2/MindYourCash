@@ -29,6 +29,8 @@ public class PurchasesFragment extends Fragment implements View.OnClickListener 
     private String account;
     private List<String> purchaseNamesList;
     private List<Double> costList;
+    private List<String> categoryList;
+    private List<String> dateList;
     private DatabaseReference databaseReference;
     private ListView listView;
 
@@ -48,6 +50,8 @@ public class PurchasesFragment extends Fragment implements View.OnClickListener 
         this.account = MainActivity.account;
         this.purchaseNamesList = new ArrayList<>();
         this.costList = new ArrayList<>();
+        this.categoryList = new ArrayList<>();
+        this.dateList = new ArrayList<>();
         this.databaseReference = FirebaseDatabase.getInstance().getReference();
         this.listView = view.findViewById(R.id.purchases_listview);
 
@@ -84,11 +88,14 @@ public class PurchasesFragment extends Fragment implements View.OnClickListener 
                                 .getValue().toString());
                         costList.add(Double.parseDouble(dataSnapshot.child("cost")
                                 .getValue().toString()));
+                        categoryList.add(dataSnapshot.child("category").getValue().toString());
+                        dateList.add(dataSnapshot.child("date").getValue().toString());
                     }
 
                     // resource: https://abhiandroid.com/ui/listview
                     PurchasesListViewAdapter purchasesListViewAdapter = new
-                            PurchasesListViewAdapter(getContext(), purchaseNamesList.toArray(), costList.toArray());
+                            PurchasesListViewAdapter(getContext(), purchaseNamesList.toArray(), costList.toArray(),
+                            categoryList.toArray(), dateList.toArray());
                     listView.setAdapter(purchasesListViewAdapter);
                 }
             }

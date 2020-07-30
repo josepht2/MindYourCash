@@ -34,4 +34,28 @@
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
         android:hint="@string/addpurchase_dialog_cost" />
+
+    <!-- resource: https://developer.android.com/guide/topics/ui/controls/spinner#java-->
+    <Spinner
+        android:id="@+id/addpurchase_dialog_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp" />
+
+    <!--  resource: https://stackoverflow.com/questions/14933330/datepicker-how-to-popup-datepicker-when-click-on-edittext  -->
+    <EditText
+        android:id="@+id/addpurchase_dialog_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:clickable="true"
+        android:editable="false"
+        android:focusable="false"
+        android:hint="@string/addpurchase_dialog_date" />
 </LinearLayout>

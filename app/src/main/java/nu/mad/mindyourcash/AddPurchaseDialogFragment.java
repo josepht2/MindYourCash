@@ -1,14 +1,21 @@
 package nu.mad.mindyourcash;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.fragment.app.DialogFragment;
 
@@ -16,6 +23,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Calendar;
 import java.util.Set;
 
 import nu.mad.mindyourcash.models.Purchase;
@@ -26,6 +34,9 @@ public class AddPurchaseDialogFragment extends DialogFragment {
 
     private User user;
     private String account;
+    private Spinner categorySpinner;
+    private EditText dateEditText;
+    final Calendar calendar;
 
     /**
      * Constructor for RegisterDialogFragment.
@@ -36,6 +47,7 @@ public class AddPurchaseDialogFragment extends DialogFragment {
         super();
         this.user = user;
         this.account = account;
+        calendar = Calendar.getInstance();
     }
 
     /**
@@ -65,6 +77,37 @@ public class AddPurchaseDialogFragment extends DialogFragment {
             public void onShow(DialogInterface dialogInterface) {
                 Button button = (alertDialog).getButton(AlertDialog.BUTTON_POSITIVE);
 
+                // resource: https://developer.android.com/guide/topics/ui/controls/spinner#java
+                categorySpinner = alertDialog.findViewById(R.id.addpurchase_dialog_category);
+                ArrayAdapter<CharSequence> categoryArrayAdapter =
+                        ArrayAdapter.createFromResource(getContext(),
+                                R.array.category_array, android.R.layout.simple_spinner_item);
+                categoryArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                categorySpinner.setAdapter(categoryArrayAdapter);
+
+                // resource: https://stackoverflow.com/questions/14933330/datepicker-how-to-popup-datepicker-when-click-on-edittext
+                dateEditText = alertDialog.findViewById(R.id.addpurchase_dialog_date);
+                final DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        calendar.set(Calendar.YEAR, year);
+                        calendar.set(Calendar.MONTH, month);
+                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        updateDateEditText();
+                    }
+                };
+                dateEditText.setOnClickListener(
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                new DatePickerDialog(getContext(),
+                                        dateSetListener, calendar.get(Calendar.YEAR),
+                                        calendar.get(Calendar.MONTH),
+                                        calendar.get(Calendar.DAY_OF_MONTH)).show();
+                            }
+                        }
+                );
+
                 button.setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -80,6 +123,8 @@ public class AddPurchaseDialogFragment extends DialogFragment {
                         boolean isEmptyCost = TextUtils.isEmpty(newCost);
                         boolean isValidCost = false;
                         double newCostDouble = 0;
+                        boolean isEmptyCategory = categorySpinner.getSelectedItem().toString().equals("Category");
+                        boolean isEmptyDate = dateEditText.getText().toString().isEmpty();
 
                         if (isEmptyAccountName) {
                             purchaseNameEditText.setError("Please enter an account name.");
@@ -121,7 +166,19 @@ public class AddPurchaseDialogFragment extends DialogFragment {
                             }
                         }
 
-                        if (!isEmptyAccountName && isValidCost) {
+                        if (isEmptyCategory) {
+                            // resource: https://stackoverflow.com/questions/3749971/creating-a-seterror-for-the-spinner/22610313
+                            TextView categorySpinnerError = (TextView) categorySpinner.getSelectedView();
+                            categorySpinnerError.setError("No Category Error");
+                            categorySpinnerError.setTextColor(Color.RED);
+                            categorySpinnerError.setText("Please pick a category");
+                        }
+
+                        if (isEmptyDate) {
+                            dateEditText.setError("Please pick a date.");
+                        }
+
+                        if (!isEmptyAccountName && isValidCost && !isEmptyCategory && !isEmptyDate) {
                             DatabaseReference databaseReference = FirebaseDatabase.getInstance()
                                     .getReference();
 
@@ -129,7 +186,9 @@ public class AddPurchaseDialogFragment extends DialogFragment {
                             databaseReference.child("users").child(user.username)
                                     .child("accounts").child(account)
                                     .child("purchases").child(newPurchaseName)
-                                    .setValue(new Purchase(newPurchaseName, newCostDouble));
+                                    .setValue(new Purchase(newPurchaseName, newCostDouble,
+                                            categorySpinner.getSelectedItem().toString(),
+                                            calendar.getTime().toString()));
 
                             // resource: https://stackoverflow.com/questions/20702333/refresh-fragment-at-reload
                             alertDialog.dismiss();
@@ -144,5 +203,9 @@ public class AddPurchaseDialogFragment extends DialogFragment {
         // resource: https://stackoverflow.com/questions/13401632/android-app-crashed-on-screen-rotation-with-dialog-open
         setRetainInstance(true);
         return alertDialog;
+    }
+
+    private void updateDateEditText() {
+        dateEditText.setText(calendar.getTime().toString());
     }
 }

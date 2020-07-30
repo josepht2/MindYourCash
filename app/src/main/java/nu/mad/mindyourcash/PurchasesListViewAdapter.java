@@ -13,12 +13,17 @@ public class PurchasesListViewAdapter extends BaseAdapter {
     private Context context;
     private Object[] purchaseNamesArray;
     private Object[] costArray;
+    private Object[] categoryArray;
+    private Object[] dateArray;
     private LayoutInflater layoutInflater;
 
-    public PurchasesListViewAdapter(Context context, Object[] purchaseNamesArray, Object[] costArray) {
+    public PurchasesListViewAdapter(Context context, Object[] purchaseNamesArray, Object[] costArray,
+                                    Object[] categoryArray, Object[] dateArray) {
         this.context = context;
         this.purchaseNamesArray = purchaseNamesArray;
         this.costArray = costArray;
+        this.categoryArray = categoryArray;
+        this.dateArray = dateArray;
         this.layoutInflater = LayoutInflater.from(context);
     }
 
@@ -42,6 +47,8 @@ public class PurchasesListViewAdapter extends BaseAdapter {
         view = layoutInflater.inflate(R.layout.purchases_listview, null);
         TextView purchaseName = view.findViewById(R.id.purchases_listview_purchaseName);
         TextView cost = view.findViewById(R.id.purchases_listview_cost);
+        TextView category = view.findViewById(R.id.purchases_listview_category);
+        TextView date = view.findViewById(R.id.purchases_listview_date);
 
         String currentCost = costArray[i].toString();
         if (currentCost.indexOf('.') == currentCost.length() - 2) {
@@ -50,6 +57,8 @@ public class PurchasesListViewAdapter extends BaseAdapter {
 
         purchaseName.setText(purchaseNamesArray[i].toString());
         cost.setText(currentCost);
+        category.setText(categoryArray[i].toString());
+        date.setText(dateArray[i].toString());
         return view;
     }
 }
