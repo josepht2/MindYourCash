@@ -20,6 +20,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_LineChartFragment"
             app:destination="@id/LineChartFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_PieChartFragment"
+            app:destination="@id/PieChartFragment" />
     </fragment>
     <fragment
         android:id="@+id/RegisterFragment"
@@ -63,5 +66,12 @@
         android:name="nu.mad.mindyourcash.LineChartFragment"
         android:label="@string/line_chart"
         tools:layout="@layout/fragment_line_chart">
+    </fragment>
+
+    <fragment
+        android:id="@+id/PieChartFragment"
+        android:name="nu.mad.mindyourcash.PieChartFragment"
+        android:label="@string/pie_chart"
+        tools:layout="@layout/fragment_pie_chart">
     </fragment>
 </navigation>

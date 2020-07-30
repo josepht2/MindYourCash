@@ -17,6 +17,7 @@
     <string name="accounts_fragment_label">Accounts Fragment</string>
     <string name="purchases_fragment_label">Purchases Fragment</string>
     <string name="line_chart">Line Chart</string>
+    <string name="pie_chart">Pie Chart</string>
     <string name="username">Username</string>
     <string name="submit">Submit</string>
     <string name="accounts">Accounts</string>
