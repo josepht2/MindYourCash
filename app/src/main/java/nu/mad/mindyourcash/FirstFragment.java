@@ -92,5 +92,13 @@ public class FirstFragment extends Fragment {
                         .navigate(R.id.action_FirstFragment_to_LineChartFragment);
             }
         });
+
+        view.findViewById(R.id.pie_chart_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(FirstFragment.this)
+                        .navigate(R.id.action_FirstFragment_to_PieChartFragment);
+            }
+        });
     }
 }
