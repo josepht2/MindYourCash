@@ -17,12 +17,6 @@
         <action
             android:id="@+id/action_FirstFragment_to_RegisterFragment"
             app:destination="@id/RegisterFragment" />
-        <action
-            android:id="@+id/action_FirstFragment_to_LineChartFragment"
-            app:destination="@id/LineChartFragment" />
-        <action
-            android:id="@+id/action_FirstFragment_to_PieChartFragment"
-            app:destination="@id/PieChartFragment" />
     </fragment>
     <fragment
         android:id="@+id/RegisterFragment"
@@ -49,6 +43,10 @@
         android:name="nu.mad.mindyourcash.PurchasesFragment"
         android:label="@string/purchases_fragment_label"
         tools:layout="@layout/purchases_fragment">
+
+        <action
+            android:id="@+id/action_PurchasesFragment_to_PieChartFragment"
+            app:destination="@id/PieChartFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
