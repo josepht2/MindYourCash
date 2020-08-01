@@ -9,14 +9,26 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import nu.mad.mindyourcash.models.User;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,6 +36,11 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class PieChartFragment extends Fragment {
+
+    private User user;
+    private String account;
+    private DatabaseReference databaseReference;
+    private HashMap<String, Double> categoryToCostTotalMap = new HashMap<>();
 
     @Override
     public View onCreateView(
@@ -37,29 +54,77 @@ public class PieChartFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // retrieve line chart
-        PieChart pieChart = view.findViewById(R.id.pieChart);
+        // set top text to reflect account name
+        this.user = MainActivity.user;
+        this.account = MainActivity.account;
+        this.databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        // set up dummy data
-        List<PieEntry> entries = new ArrayList<>();
+        // set pie chart heading
+        TextView pieChartHeading = view.findViewById(R.id.pie_chart_heading);
+        String heading = "Cost Distribution For Account " + this.account;
+        pieChartHeading.setText(heading);
 
-        // add some dummy data
-        entries.add(new PieEntry(10,"Rent"));
-        entries.add(new PieEntry(20,"Food"));
-        entries.add(new PieEntry(34,"Travel"));
-        entries.add(new PieEntry(53,"School"));
+        this.computePieData(view);
+    }
 
-        // make sure num of colors is same as num categories
-        int[] colorsArray = new int[]{Color.RED, Color.BLUE, Color.GREEN, Color.MAGENTA};
+    public void computePieData(final View view) {
+        databaseReference.child("users").child(user.username)
+                .child("accounts").child(this.account)
+                .child("purchases").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.getValue() != null) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
-        PieDataSet pieDataSet = new PieDataSet(entries, "");
+                        Double cost = Double.parseDouble(dataSnapshot.child("cost").getValue().toString());
+                        String category = dataSnapshot.child("category").getValue().toString();
 
-        pieDataSet.setColors(colorsArray);
+                        // check if category already in map, if yes, then increment the cost
+                        if (categoryToCostTotalMap.containsKey(category)) {
+                            categoryToCostTotalMap.put(category,
+                                    categoryToCostTotalMap.get(category) + cost);
+                        } else {
+                            // otherwise add the category and initialize with cost
+                            categoryToCostTotalMap.put(category, cost);
 
-        PieData pieData = new PieData(pieDataSet);
+                        }
+                    }
+                }
 
-        pieChart.setData(pieData);
+                // retrieve line chart
+                PieChart pieChart = view.findViewById(R.id.pieChart);
 
-        pieChart.invalidate(); // refresh
+                // set up account data
+                List<PieEntry> pieChartEntries = new ArrayList<>();
+
+                // go through the categoryToCosts map, and populate pieChartEntries
+                for (Map.Entry<String, Double> categoryToCost : categoryToCostTotalMap.entrySet()) {
+                    float floatCost = (float) (double) categoryToCost.getValue();
+
+                    pieChartEntries.add(new PieEntry(floatCost, categoryToCost.getKey()));
+                }
+
+                // make sure num of colors is same as num categories
+                int[] colorsArray = new int[]{Color.RED, Color.BLUE, Color.GREEN, Color.MAGENTA, Color.LTGRAY};
+
+                PieDataSet pieDataSet = new PieDataSet(pieChartEntries, "");
+
+                pieDataSet.setColors(colorsArray);
+
+                PieData pieData = new PieData(pieDataSet);
+
+                // increase value text size
+                pieData.setValueTextSize(20f);
+
+                pieChart.setData(pieData);
+
+                pieChart.invalidate(); // refresh
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
