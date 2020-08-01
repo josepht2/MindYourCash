@@ -9,6 +9,7 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,6 +22,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import nu.mad.mindyourcash.models.Purchase;
 import nu.mad.mindyourcash.models.User;
 
 public class PurchasesFragment extends Fragment implements View.OnClickListener {
@@ -58,6 +60,15 @@ public class PurchasesFragment extends Fragment implements View.OnClickListener 
         renderPurchases();
 
         view.findViewById(R.id.purchases_fab).setOnClickListener(this);
+
+        // nav to pie chart
+        view.findViewById(R.id.pie_chart_accounts_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(PurchasesFragment.this)
+                        .navigate(R.id.action_PurchasesFragment_to_PieChartFragment);
+            }
+        });
     }
 
     /**
