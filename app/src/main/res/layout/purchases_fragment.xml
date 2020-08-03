@@ -27,8 +27,18 @@
             android:layout_height="wrap_content"
             android:text="@string/purchases"
             app:layout_constraintBottom_toTopOf="@id/purchases_listview"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/purchases_pictures_button"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/purchases_pictures_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pictures"
+            app:layout_constraintBottom_toTopOf="@id/purchases_listview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/purchases_textview"
             app:layout_constraintTop_toTopOf="parent" />
 
         <!-- resource: https://abhiandroid.com/ui/listview -->
