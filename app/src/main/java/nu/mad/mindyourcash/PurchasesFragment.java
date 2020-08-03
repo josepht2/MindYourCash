@@ -69,6 +69,14 @@ public class PurchasesFragment extends Fragment implements View.OnClickListener 
                         .navigate(R.id.action_PurchasesFragment_to_PieChartFragment);
             }
         });
+
+        view.findViewById(R.id.purchases_pictures_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(PurchasesFragment.this)
+                        .navigate(R.id.action_PurchasesFragment_to_PicturesFragment);
+            }
+        });
     }
 
     /**
