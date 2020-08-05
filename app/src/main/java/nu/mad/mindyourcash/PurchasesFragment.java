@@ -102,6 +102,11 @@ public class PurchasesFragment extends Fragment implements View.OnClickListener 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.getValue() != null) {
+                    purchaseNamesList = new ArrayList<>();
+                    costList = new ArrayList<>();
+                    categoryList = new ArrayList<>();
+                    dateList = new ArrayList<>();
+
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         purchaseNamesList.add(dataSnapshot.child("purchaseName")
                                 .getValue().toString());

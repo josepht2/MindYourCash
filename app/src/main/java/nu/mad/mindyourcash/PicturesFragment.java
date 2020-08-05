@@ -37,6 +37,7 @@ public class PicturesFragment extends Fragment {
     private Button button;
     private ListView listView;
     private List<byte[]> pictureArray;
+    private PicturesFragment picturesFragment;
 
     @Override
     public View onCreateView(
@@ -57,6 +58,8 @@ public class PicturesFragment extends Fragment {
         listView = view.findViewById(R.id.pictures_listview);
 
         pictureArray = new ArrayList<>();
+
+        picturesFragment = this;
 
         renderPictures();
 
@@ -91,6 +94,7 @@ public class PicturesFragment extends Fragment {
                         .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                picturesFragment.renderPictures();
                                 Snackbar.make(getActivity().findViewById(R.id.pictures_constraintlayout),
                                         "Successfully added picture.", Snackbar.LENGTH_LONG).show();
                             }
@@ -114,6 +118,8 @@ public class PicturesFragment extends Fragment {
                 .child("pictures").listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
             @Override
             public void onSuccess(ListResult listResult) {
+                pictureArray = new ArrayList<>();
+
                 for (StorageReference imageReference : listResult.getItems()) {
                     // resource: https://firebase.google.com/docs/storage/android/download-files
                     imageReference.getBytes(1024 * 1024)

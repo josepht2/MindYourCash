@@ -77,6 +77,9 @@ public class AccountsFragment extends Fragment implements View.OnClickListener {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.getValue() != null) {
+                            accountNamesList = new ArrayList<>();
+                            accountNamesSet = new HashSet<>();
+
                             for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                                 accountNamesList.add(dataSnapshot.child("accountName")
                                         .getValue().toString());
