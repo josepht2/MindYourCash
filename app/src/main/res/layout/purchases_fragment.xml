@@ -21,13 +21,17 @@
         android:layout_height="match_parent"
         tools:context=".PurchasesFragment">
 
+        <!-- resource: https://abhiandroid.com/ui/listview -->
+
         <TextView
             android:id="@+id/purchases_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="172dp"
+            android:layout_marginTop="168dp"
             android:text="@string/purchases"
-            app:layout_constraintBottom_toTopOf="@id/purchases_listview"
-            app:layout_constraintEnd_toStartOf="@id/purchases_pictures_button"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,10 +42,11 @@
             android:text="@string/pictures"
             app:layout_constraintBottom_toTopOf="@id/purchases_listview"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.409"
             app:layout_constraintStart_toEndOf="@id/purchases_textview"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.173" />
 
-        <!-- resource: https://abhiandroid.com/ui/listview -->
         <ListView
             android:id="@+id/purchases_listview"
             android:layout_width="wrap_content"
@@ -57,11 +62,14 @@
             android:id="@+id/pie_chart_accounts_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="124dp"
             android:text="@string/pie_chart"
             app:layout_constraintBottom_toTopOf="@+id/purchases_textview"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/purchases_pictures_button"
+            app:layout_constraintHorizontal_bias="0.555"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.603" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
