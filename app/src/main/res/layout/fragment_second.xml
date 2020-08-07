@@ -5,7 +5,8 @@
     android:id="@+id/secondfragment_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SecondFragment">
+    tools:context=".SecondFragment"
+    android:background="@drawable/gradient_bg">
 
     <TextView
         android:id="@+id/textview_second"

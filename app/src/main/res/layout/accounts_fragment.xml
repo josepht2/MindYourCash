@@ -6,7 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/accounts_coordinatorlayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_bg">
 
     <!-- https://stackoverflow.com/questions/40562344/how-to-add-scroll-in-fragment/43188084#43188084 -->
     <!--    <ScrollView-->

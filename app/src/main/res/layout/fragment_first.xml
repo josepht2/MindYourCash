@@ -5,7 +5,8 @@
     android:id="@+id/firstfragment_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FirstFragment">
+    tools:context=".FirstFragment"
+    android:background="@drawable/gradient_bg">
 
     <TextView
         android:id="@+id/mindyourcash_textview"
