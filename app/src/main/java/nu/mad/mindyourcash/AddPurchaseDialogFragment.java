@@ -38,11 +38,6 @@ public class AddPurchaseDialogFragment extends DialogFragment {
     private EditText dateEditText;
     final Calendar calendar;
 
-    /**
-     * Constructor for RegisterDialogFragment.
-     *
-     * @author Joseph Triolo
-     */
     AddPurchaseDialogFragment(User user, String account) {
         super();
         this.user = user;
@@ -50,15 +45,6 @@ public class AddPurchaseDialogFragment extends DialogFragment {
         calendar = Calendar.getInstance();
     }
 
-    /**
-     * onCreateDialog for LinkCollectorDialogFragment.
-     * Gets layout, adds buttons with listeners.
-     * Dialog requires a name and a url to add a link. If either are empty, the appropriate
-     * EditText will give an error and the dialog won't dismiss.
-     *
-     * @param savedInstanceState the context associated with this dialog
-     * @author Joseph Triolo
-     */
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

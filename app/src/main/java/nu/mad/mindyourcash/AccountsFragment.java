@@ -56,8 +56,7 @@ public class AccountsFragment extends Fragment implements View.OnClickListener {
     }
 
     /**
-     * onClick for LinkCollectorFragment.
-     * If the floating action button is clicked, then it will bring up the dialog to add a link.
+     * If the floating action button is clicked, then it will bring up the dialog to add an account.
      *
      * @param view the view associated with this onClick
      * @author Joseph Triolo
@@ -71,6 +70,12 @@ public class AccountsFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * Renders the accounts for the current user.
+     *
+     * @param view the view associated with this function
+     * @author Joseph Triolo
+     */
     public void renderAccounts(final View view) {
         databaseReference.child("users").child(user.username).child("accounts")
                 .addValueEventListener(new ValueEventListener() {

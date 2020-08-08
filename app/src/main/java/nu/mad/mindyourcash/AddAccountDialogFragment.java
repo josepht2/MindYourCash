@@ -26,26 +26,12 @@ public class AddAccountDialogFragment extends DialogFragment {
     private User user;
     private Set<String> accountNamesSet;
 
-    /**
-     * Constructor for RegisterDialogFragment.
-     *
-     * @author Joseph Triolo
-     */
     AddAccountDialogFragment(User user, Set<String> accountNamesSet) {
         super();
         this.user = user;
         this.accountNamesSet = accountNamesSet;
     }
 
-    /**
-     * onCreateDialog for LinkCollectorDialogFragment.
-     * Gets layout, adds buttons with listeners.
-     * Dialog requires a name and a url to add a link. If either are empty, the appropriate
-     * EditText will give an error and the dialog won't dismiss.
-     *
-     * @param savedInstanceState the context associated with this dialog
-     * @author Joseph Triolo
-     */
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

@@ -119,6 +119,11 @@ public class PicturesFragment extends Fragment {
         }
     }
 
+    /**
+     * Renders the pictures for the current user/account.
+     *
+     * @author Joseph Triolo
+     */
     private void renderPictures() {
         // resource: https://stackoverflow.com/questions/37335102/how-to-get-a-list-of-all-files-in-cloud-storage-in-a-firebase-app
         storageReference

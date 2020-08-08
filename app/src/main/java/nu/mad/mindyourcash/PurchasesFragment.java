@@ -103,6 +103,11 @@ public class PurchasesFragment extends Fragment implements View.OnClickListener 
         }
     }
 
+    /**
+     * Renders the purchases for the current user/account.
+     *
+     * @author Joseph Triolo
+     */
     public void renderPurchases() {
         databaseReference.child("users").child(user.username)
                 .child("accounts").child(account)
