@@ -105,7 +105,7 @@ public class PieChartFragment extends Fragment {
                 }
 
                 // make sure num of colors is same as num categories
-                int[] colorsArray = new int[]{Color.RED, Color.BLUE, Color.GREEN, Color.MAGENTA, Color.LTGRAY};
+                int[] colorsArray = new int[]{Color.RED, Color.BLUE, Color.GREEN, Color.MAGENTA, Color.LTGRAY, Color.YELLOW, Color.CYAN};
 
                 PieDataSet pieDataSet = new PieDataSet(pieChartEntries, "");
 
