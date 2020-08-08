@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.util.Date;
+
 // resource: https://abhiandroid.com/ui/listview
 public class PurchasesListViewAdapter extends BaseAdapter {
 
@@ -58,7 +60,12 @@ public class PurchasesListViewAdapter extends BaseAdapter {
         purchaseName.setText(purchaseNamesArray[i].toString());
         cost.setText(currentCost);
         category.setText(categoryArray[i].toString());
-        date.setText(dateArray[i].toString());
+
+        Date savedDate = new Date(dateArray[i].toString());
+        String dateString = (savedDate.getMonth() + 1) + "/" + savedDate.getDate() + "/"
+                + (savedDate.getYear() + 1900);
+
+        date.setText(dateString);
         return view;
     }
 }

@@ -37,8 +37,9 @@
         <!-- resource: https://abhiandroid.com/ui/listview -->
         <ListView
             android:id="@+id/accounts_listview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1"
             android:divider="#000000"
             android:dividerHeight="1dp"
             app:layout_constraintBottom_toBottomOf="parent"

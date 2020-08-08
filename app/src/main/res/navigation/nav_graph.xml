@@ -45,6 +45,9 @@
         tools:layout="@layout/purchases_fragment">
 
         <action
+            android:id="@+id/action_PurchasesFragment_to_AccountsFragment"
+            app:destination="@id/AccountsFragment" />
+        <action
             android:id="@+id/action_PurchasesFragment_to_PieChartFragment"
             app:destination="@id/PieChartFragment" />
         <action
@@ -56,6 +59,10 @@
         android:name="nu.mad.mindyourcash.PicturesFragment"
         android:label="@string/pictures_fragment_label"
         tools:layout="@layout/pictures_fragment">
+
+        <action
+            android:id="@+id/action_PicturesFragment_to_PurchasesFragment"
+            app:destination="@id/PurchasesFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -71,12 +78,10 @@
         android:id="@+id/LineChartFragment"
         android:name="nu.mad.mindyourcash.LineChartFragment"
         android:label="@string/line_chart"
-        tools:layout="@layout/fragment_line_chart">
-    </fragment>
+        tools:layout="@layout/fragment_line_chart"></fragment>
     <fragment
         android:id="@+id/PieChartFragment"
         android:name="nu.mad.mindyourcash.PieChartFragment"
         android:label="@string/pie_chart"
-        tools:layout="@layout/fragment_pie_chart">
-    </fragment>
+        tools:layout="@layout/fragment_pie_chart"></fragment>
 </navigation>
