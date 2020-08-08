@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -49,6 +50,11 @@ public class AccountsFragment extends Fragment implements View.OnClickListener {
         this.accountNamesSet = new HashSet<>();
         this.databaseReference = FirebaseDatabase.getInstance().getReference();
         this.listView = view.findViewById(R.id.accounts_listview);
+
+        if (MainActivity.user != null) {
+            ((TextView) view.findViewById(R.id.accounts_textview))
+                    .setText("Accounts for " + MainActivity.user.username);
+        }
 
         renderAccounts(view);
 

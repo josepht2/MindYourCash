@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -56,6 +57,11 @@ public class PurchasesFragment extends Fragment implements View.OnClickListener 
         this.dateList = new ArrayList<>();
         this.databaseReference = FirebaseDatabase.getInstance().getReference();
         this.listView = view.findViewById(R.id.purchases_listview);
+
+        if (MainActivity.account != null) {
+            ((TextView) view.findViewById(R.id.purchases_textview))
+                    .setText("Purchases for " + MainActivity.account);
+        }
 
         renderPurchases();
 
