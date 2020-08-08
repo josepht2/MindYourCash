@@ -24,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
+import java.util.Objects;
 import java.util.Set;
 
 import nu.mad.mindyourcash.models.Purchase;
@@ -67,7 +68,7 @@ public class AddPurchaseDialogFragment extends DialogFragment {
                 // resource: https://developer.android.com/guide/topics/ui/controls/spinner#java
                 categorySpinner = alertDialog.findViewById(R.id.addpurchase_dialog_category);
                 ArrayAdapter<CharSequence> categoryArrayAdapter =
-                        ArrayAdapter.createFromResource(getContext(),
+                        ArrayAdapter.createFromResource(requireContext(),
                                 R.array.category_array, android.R.layout.simple_spinner_item);
                 categoryArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 categorySpinner.setAdapter(categoryArrayAdapter);
@@ -87,7 +88,7 @@ public class AddPurchaseDialogFragment extends DialogFragment {
                         new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                new DatePickerDialog(getContext(),
+                                new DatePickerDialog(requireContext(),
                                         dateSetListener, calendar.get(Calendar.YEAR),
                                         calendar.get(Calendar.MONTH),
                                         calendar.get(Calendar.DAY_OF_MONTH)).show();
