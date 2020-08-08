@@ -19,12 +19,14 @@ public class AccountsListViewAdapter extends BaseAdapter {
 
     private Context context;
     private Object[] accountNamesArray;
+    private Object[] accountTotalsArray;
     private LayoutInflater layoutInflater;
     private Fragment fragment;
 
-    public AccountsListViewAdapter(Context context, Object[] accountNamesArray, Fragment fragment) {
+    public AccountsListViewAdapter(Context context, Object[] accountNamesArray, Object [] accountTotalsArray, Fragment fragment) {
         this.context = context;
         this.accountNamesArray = accountNamesArray;
+        this.accountTotalsArray = accountTotalsArray;
         this.layoutInflater = LayoutInflater.from(context);
         this.fragment = fragment;
     }
@@ -48,8 +50,17 @@ public class AccountsListViewAdapter extends BaseAdapter {
     public View getView(final int i, View view, ViewGroup viewGroup) {
         view = layoutInflater.inflate(R.layout.accounts_listview, null);
         TextView accountName = view.findViewById(R.id.accounts_listview_textview);
+        TextView total = view.findViewById(R.id.accounts_total_listview_textview);
         ImageButton delete = view.findViewById(R.id.accounts_listview_button_delete);
         accountName.setText(accountNamesArray[i].toString());
+
+        String accountTotal = accountTotalsArray[i].toString();
+        if (accountTotal.indexOf('.') == accountTotal.length() - 2) {
+            accountTotal += "0";
+        }
+
+        total.setText("$" + accountTotal);
+
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

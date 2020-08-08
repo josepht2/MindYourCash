@@ -65,7 +65,7 @@ public class PurchasesListViewAdapter extends BaseAdapter {
         }
 
         purchaseName.setText(purchaseNamesArray[i].toString());
-        cost.setText(currentCost);
+        cost.setText("$" + currentCost);
         category.setText(categoryArray[i].toString());
 
         Date savedDate = new Date(dateArray[i].toString());

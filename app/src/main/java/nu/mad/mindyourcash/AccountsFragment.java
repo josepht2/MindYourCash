@@ -28,6 +28,7 @@ public class AccountsFragment extends Fragment implements View.OnClickListener {
 
     private User user;
     private List<String> accountNamesList;
+    private List<Double> accountTotalsList;
     private Set<String> accountNamesSet;
     private DatabaseReference databaseReference;
     private ListView listView;
@@ -46,6 +47,7 @@ public class AccountsFragment extends Fragment implements View.OnClickListener {
 
         this.user = MainActivity.user;
         this.accountNamesList = new ArrayList<>();
+        this.accountTotalsList = new ArrayList<>();
         this.accountNamesSet = new HashSet<>();
         this.databaseReference = FirebaseDatabase.getInstance().getReference();
         this.listView = view.findViewById(R.id.accounts_listview);
@@ -83,11 +85,26 @@ public class AccountsFragment extends Fragment implements View.OnClickListener {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         accountNamesList = new ArrayList<>();
                         accountNamesSet = new HashSet<>();
+                        accountTotalsList = new ArrayList<>();
 
                         if (snapshot.getValue() != null) {
                             for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                                 accountNamesList.add(dataSnapshot.child("accountName")
                                         .getValue().toString());
+
+                                // calculate account totals
+                                if (accountNamesList.size() > 0) {
+
+                                    double accountTotal = 0;
+
+                                    for (DataSnapshot purchase : dataSnapshot.child("purchases").getChildren()) {
+                                        accountTotal += (Double.parseDouble(purchase.child("cost")
+                                                .getValue().toString()));
+                                    }
+
+                                    accountTotalsList.add(accountTotal);
+                                }
+
                                 accountNamesSet.add(dataSnapshot.child("accountName")
                                         .getValue().toString()
                                         .replaceAll(" ", "")
@@ -99,7 +116,7 @@ public class AccountsFragment extends Fragment implements View.OnClickListener {
 
                         // resource: https://abhiandroid.com/ui/listview
                         AccountsListViewAdapter accountsListViewAdapter = new
-                                AccountsListViewAdapter(getContext(), accountNamesList.toArray(),
+                                AccountsListViewAdapter(getContext(), accountNamesList.toArray(), accountTotalsList.toArray(),
                                 AccountsFragment.this);
                         listView.setAdapter(accountsListViewAdapter);
                     }
