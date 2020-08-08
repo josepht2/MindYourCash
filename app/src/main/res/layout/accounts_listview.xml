@@ -10,26 +10,26 @@
 
     <TextView
         android:id="@+id/accounts_listview_textview"
-        android:layout_width="0dp"
-        android:layout_height="55dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
         android:textColor="@android:color/black"
         android:textColorHint="@android:color/black"
         android:textSize="18sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/accounts_total_listview_textview"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/accounts_total_listview_textview"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/accounts_total_listview_textview"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
         android:textColor="@android:color/black"
         android:textColorHint="@android:color/black"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/accounts_listview_button_delete"
-        app:layout_constraintHorizontal_bias="0.549"
-        app:layout_constraintStart_toEndOf="@+id/accounts_listview_textview"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/accounts_listview_button_delete"
+        app:layout_constraintStart_toEndOf="@id/accounts_listview_textview"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
@@ -37,10 +37,10 @@
         style="@android:style/Widget.Holo.ImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="344dp"
-        android:layout_marginTop="8dp"
         android:src="@android:drawable/ic_delete"
-        app:layout_constraintStart_toStartOf="@+id/accounts_listview_textview"
-        app:layout_constraintTop_toTopOf="@+id/accounts_listview_textview" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/accounts_total_listview_textview"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
