@@ -38,7 +38,8 @@ public class AddAccountDialogFragment extends DialogFragment {
         LayoutInflater inflater = requireActivity().getLayoutInflater();
 
         builder.setView(R.layout.addaccount_dialog)
-                .setPositiveButton(R.string.addaccount, null);
+                .setPositiveButton(R.string.addaccount, null)
+                .setNegativeButton("Cancel", null);
 
         // resource: https://stackoverflow.com/questions/2620444/how-to-prevent-a-dialog-from-closing-when-a-button-is-clicked
 
