@@ -61,6 +61,14 @@ public class PurchasesFragment extends Fragment implements View.OnClickListener 
 
         view.findViewById(R.id.purchases_fab).setOnClickListener(this);
 
+        view.findViewById(R.id.purchases_button_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(PurchasesFragment.this)
+                        .navigate(R.id.action_PurchasesFragment_to_AccountsFragment);
+            }
+        });
+
         // nav to pie chart
         view.findViewById(R.id.pie_chart_accounts_button).setOnClickListener(new View.OnClickListener() {
             @Override

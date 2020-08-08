@@ -2,6 +2,7 @@
 
 <!-- resource: https://abhiandroid.com/ui/listview -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/accounts_listview_linearlayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 

@@ -11,10 +11,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/pictures"
-        app:layout_constraintBottom_toTopOf="@id/pictures_listview"
-        app:layout_constraintEnd_toStartOf="@id/pictures_button"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/pictures_button_back"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/pictures_button_back"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/purchases"
+        app:layout_constraintBottom_toTopOf="@id/pictures_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pictures_textview" />
 
     <Button
         android:id="@+id/pictures_button"
@@ -24,18 +37,19 @@
         android:text="@string/takeapicture"
         app:layout_constraintBottom_toTopOf="@id/pictures_listview"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/pictures_textview"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pictures_button_back" />
 
     <ListView
         android:id="@+id/pictures_listview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
         android:divider="#000000"
         android:dividerHeight="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pictures_textview" />
+        app:layout_constraintTop_toBottomOf="@id/pictures_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

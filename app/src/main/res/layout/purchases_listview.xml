@@ -11,6 +11,7 @@
     <TextView
         android:id="@+id/purchases_listview_purchaseName"
         android:layout_width="wrap_content"
+<<<<<<< HEAD
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
         android:textColorHint="@android:color/black"
@@ -23,10 +24,10 @@
     <TextView
         android:id="@+id/purchases_listview_cost"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:textColor="@android:color/black"
         android:textColorHint="@android:color/black"
         android:textSize="18sp"
+        android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/purchases_listview_category"
         app:layout_constraintStart_toEndOf="@id/purchases_listview_purchaseName"
@@ -35,10 +36,12 @@
     <TextView
         android:id="@+id/purchases_listview_category"
         android:layout_width="wrap_content"
+<<<<<<< HEAD
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
         android:textColorHint="@android:color/black"
         android:textSize="18sp"
+        android:layout_height="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/purchases_listview_date"
         app:layout_constraintStart_toEndOf="@id/purchases_listview_cost"
@@ -47,6 +50,7 @@
     <TextView
         android:id="@+id/purchases_listview_date"
         android:layout_width="wrap_content"
+<<<<<<< HEAD
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
         android:textColorHint="@android:color/black"
