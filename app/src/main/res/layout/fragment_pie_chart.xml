@@ -3,14 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PieChartFragment"
-    android:background="@drawable/gradient_bg">
+    android:background="@drawable/gradient_bg"
+    tools:context=".PieChartFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/pie_chart_heading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/black"
         android:textSize="18sp" />
 
     <com.github.mikephil.charting.charts.PieChart

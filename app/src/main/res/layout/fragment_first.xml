@@ -5,14 +5,16 @@
     android:id="@+id/firstfragment_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FirstFragment"
-    android:background="@drawable/gradient_bg">
+    android:background="@drawable/gradient_bg"
+    tools:context=".FirstFragment">
 
     <TextView
         android:id="@+id/mindyourcash_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/mindyourcash"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@id/register_button"
