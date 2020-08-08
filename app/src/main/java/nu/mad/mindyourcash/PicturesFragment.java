@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -57,6 +58,11 @@ public class PicturesFragment extends Fragment {
 
         button = view.findViewById(R.id.pictures_button);
         listView = view.findViewById(R.id.pictures_listview);
+
+        if (MainActivity.account != null) {
+            ((TextView) view.findViewById(R.id.pictures_textview))
+                    .setText("Pictures for " + MainActivity.account);
+        }
 
         pictureArray = new ArrayList<>();
 

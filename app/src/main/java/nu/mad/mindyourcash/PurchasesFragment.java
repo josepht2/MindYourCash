@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -35,6 +36,8 @@ public class PurchasesFragment extends Fragment implements View.OnClickListener 
     private List<String> dateList;
     private DatabaseReference databaseReference;
     private ListView listView;
+    private TextView totalTextView;
+    private double total;
 
     @Override
     public View onCreateView(
@@ -56,6 +59,13 @@ public class PurchasesFragment extends Fragment implements View.OnClickListener 
         this.dateList = new ArrayList<>();
         this.databaseReference = FirebaseDatabase.getInstance().getReference();
         this.listView = view.findViewById(R.id.purchases_listview);
+        this.totalTextView = view.findViewById(R.id.purchases_textview_total);
+        this.total = 0;
+
+        if (MainActivity.account != null) {
+            ((TextView) view.findViewById(R.id.purchases_textview))
+                    .setText("Purchases for " + MainActivity.account);
+        }
 
         renderPurchases();
 
@@ -118,6 +128,7 @@ public class PurchasesFragment extends Fragment implements View.OnClickListener 
                 costList = new ArrayList<>();
                 categoryList = new ArrayList<>();
                 dateList = new ArrayList<>();
+                total = 0;
 
                 if (snapshot.getValue() != null) {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
@@ -125,10 +136,17 @@ public class PurchasesFragment extends Fragment implements View.OnClickListener 
                                 .getValue().toString());
                         costList.add(Double.parseDouble(dataSnapshot.child("cost")
                                 .getValue().toString()));
+                        total += Double.parseDouble(dataSnapshot.child("cost").getValue().toString());
                         categoryList.add(dataSnapshot.child("category").getValue().toString());
                         dateList.add(dataSnapshot.child("date").getValue().toString());
                     }
                 }
+
+                String totalString = Double.toString(total);
+                if (totalString.indexOf('.') == totalString.length() - 2) {
+                    totalString += "0";
+                }
+                totalTextView.setText("Total: $" + totalString);
 
                 // resource: https://abhiandroid.com/ui/listview
                 PurchasesListViewAdapter purchasesListViewAdapter = new

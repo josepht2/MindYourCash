@@ -37,8 +37,12 @@
 
     <string-array name="category_array">
         <item>Category</item>
+        <item>Hobbies</item>
         <item>Groceries</item>
-        <item>Rent</item>
+        <item>Living</item>
+        <item>Work</item>
+        <item>Travel</item>
+        <item>Education</item>
         <item>Miscellaneous</item>
     </string-array>
 </resources>

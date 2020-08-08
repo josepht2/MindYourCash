@@ -61,7 +61,12 @@ public class PieChartFragment extends Fragment {
 
         // set pie chart heading
         TextView pieChartHeading = view.findViewById(R.id.pie_chart_heading);
-        String heading = "Cost Distribution For Account: " + this.account;
+        String heading = "Cost Distribution For ";
+        if (MainActivity.account != null) {
+            heading += this.account;
+        } else {
+            heading += "Account";
+        }
         pieChartHeading.setText(heading);
 
         this.computePieData(view);
