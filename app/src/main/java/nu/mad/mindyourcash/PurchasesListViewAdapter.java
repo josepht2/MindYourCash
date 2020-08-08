@@ -5,7 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
+
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Date;
 
@@ -45,12 +51,13 @@ public class PurchasesListViewAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         view = layoutInflater.inflate(R.layout.purchases_listview, null);
         TextView purchaseName = view.findViewById(R.id.purchases_listview_purchaseName);
         TextView cost = view.findViewById(R.id.purchases_listview_cost);
         TextView category = view.findViewById(R.id.purchases_listview_category);
         TextView date = view.findViewById(R.id.purchases_listview_date);
+        ImageButton delete = view.findViewById(R.id.purchases_listview_button_delete);
 
         String currentCost = costArray[i].toString();
         if (currentCost.indexOf('.') == currentCost.length() - 2) {
@@ -66,6 +73,19 @@ public class PurchasesListViewAdapter extends BaseAdapter {
                 + (savedDate.getYear() + 1900);
 
         date.setText(dateString);
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseDatabase.getInstance().getReference()
+                        .child("users").child(MainActivity.user.username)
+                        .child("accounts").child(MainActivity.account)
+                        .child("purchases").child(purchaseNamesArray[i].toString()).removeValue();
+                Snackbar.make(v,
+                        "Successfully removed purchase.", Snackbar.LENGTH_LONG).show();
+            }
+        });
+
         return view;
     }
 }

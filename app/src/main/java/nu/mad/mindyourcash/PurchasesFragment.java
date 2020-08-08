@@ -114,12 +114,12 @@ public class PurchasesFragment extends Fragment implements View.OnClickListener 
                 .child("purchases").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.getValue() != null) {
-                    purchaseNamesList = new ArrayList<>();
-                    costList = new ArrayList<>();
-                    categoryList = new ArrayList<>();
-                    dateList = new ArrayList<>();
+                purchaseNamesList = new ArrayList<>();
+                costList = new ArrayList<>();
+                categoryList = new ArrayList<>();
+                dateList = new ArrayList<>();
 
+                if (snapshot.getValue() != null) {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         purchaseNamesList.add(dataSnapshot.child("purchaseName")
                                 .getValue().toString());
@@ -128,13 +128,13 @@ public class PurchasesFragment extends Fragment implements View.OnClickListener 
                         categoryList.add(dataSnapshot.child("category").getValue().toString());
                         dateList.add(dataSnapshot.child("date").getValue().toString());
                     }
-
-                    // resource: https://abhiandroid.com/ui/listview
-                    PurchasesListViewAdapter purchasesListViewAdapter = new
-                            PurchasesListViewAdapter(getContext(), purchaseNamesList.toArray(), costList.toArray(),
-                            categoryList.toArray(), dateList.toArray());
-                    listView.setAdapter(purchasesListViewAdapter);
                 }
+
+                // resource: https://abhiandroid.com/ui/listview
+                PurchasesListViewAdapter purchasesListViewAdapter = new
+                        PurchasesListViewAdapter(getContext(), purchaseNamesList.toArray(), costList.toArray(),
+                        categoryList.toArray(), dateList.toArray());
+                listView.setAdapter(purchasesListViewAdapter);
             }
 
             @Override

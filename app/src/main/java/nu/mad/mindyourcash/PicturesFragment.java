@@ -124,7 +124,7 @@ public class PicturesFragment extends Fragment {
      *
      * @author Joseph Triolo
      */
-    private void renderPictures() {
+    public void renderPictures() {
         // resource: https://stackoverflow.com/questions/37335102/how-to-get-a-list-of-all-files-in-cloud-storage-in-a-firebase-app
         storageReference
                 .child("users").child(MainActivity.user.username)
@@ -133,19 +133,27 @@ public class PicturesFragment extends Fragment {
             @Override
             public void onSuccess(ListResult listResult) {
                 pictureArray = new ArrayList<>();
+                final List<String> pictureNameArray = new ArrayList<>();
 
-                for (StorageReference imageReference : listResult.getItems()) {
+                for (final StorageReference imageReference : listResult.getItems()) {
                     // resource: https://firebase.google.com/docs/storage/android/download-files
                     imageReference.getBytes(1024 * 1024)
                             .addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                 @Override
                                 public void onSuccess(byte[] byteArray) {
                                     pictureArray.add(byteArray);
+                                    pictureNameArray.add(imageReference.getName());
                                     PicturesListViewAdapter picturesListViewAdapter = new PicturesListViewAdapter(getContext(),
-                                            pictureArray.toArray());
+                                            picturesFragment, pictureArray.toArray(), pictureNameArray.toArray());
                                     listView.setAdapter(picturesListViewAdapter);
                                 }
                             });
+                }
+
+                if (pictureArray.isEmpty()) {
+                    PicturesListViewAdapter picturesListViewAdapter = new PicturesListViewAdapter(getContext(),
+                            picturesFragment, pictureArray.toArray(), pictureNameArray.toArray());
+                    listView.setAdapter(picturesListViewAdapter);
                 }
             }
         });

@@ -5,10 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.FirebaseDatabase;
 
 // resource: https://abhiandroid.com/ui/listview
 public class AccountsListViewAdapter extends BaseAdapter {
@@ -44,6 +48,7 @@ public class AccountsListViewAdapter extends BaseAdapter {
     public View getView(final int i, View view, ViewGroup viewGroup) {
         view = layoutInflater.inflate(R.layout.accounts_listview, null);
         TextView accountName = view.findViewById(R.id.accounts_listview_textview);
+        ImageButton delete = view.findViewById(R.id.accounts_listview_button_delete);
         accountName.setText(accountNamesArray[i].toString());
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +58,18 @@ public class AccountsListViewAdapter extends BaseAdapter {
                         .navigate(R.id.action_AccountsFragment_to_PurchasesFragment);
             }
         });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseDatabase.getInstance().getReference()
+                        .child("users").child(MainActivity.user.username)
+                        .child("accounts").child(accountNamesArray[i].toString()).removeValue();
+                Snackbar.make(v,
+                        "Successfully removed account.", Snackbar.LENGTH_LONG).show();
+            }
+        });
+
         return view;
     }
 

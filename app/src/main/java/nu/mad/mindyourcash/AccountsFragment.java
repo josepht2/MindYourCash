@@ -81,10 +81,10 @@ public class AccountsFragment extends Fragment implements View.OnClickListener {
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.getValue() != null) {
-                            accountNamesList = new ArrayList<>();
-                            accountNamesSet = new HashSet<>();
+                        accountNamesList = new ArrayList<>();
+                        accountNamesSet = new HashSet<>();
 
+                        if (snapshot.getValue() != null) {
                             for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                                 accountNamesList.add(dataSnapshot.child("accountName")
                                         .getValue().toString());
@@ -95,13 +95,13 @@ public class AccountsFragment extends Fragment implements View.OnClickListener {
                                         .replaceAll("\t", "")
                                         .toLowerCase());
                             }
-
-                            // resource: https://abhiandroid.com/ui/listview
-                            AccountsListViewAdapter accountsListViewAdapter = new
-                                    AccountsListViewAdapter(getContext(), accountNamesList.toArray(),
-                                    AccountsFragment.this);
-                            listView.setAdapter(accountsListViewAdapter);
                         }
+
+                        // resource: https://abhiandroid.com/ui/listview
+                        AccountsListViewAdapter accountsListViewAdapter = new
+                                AccountsListViewAdapter(getContext(), accountNamesList.toArray(),
+                                AccountsFragment.this);
+                        listView.setAdapter(accountsListViewAdapter);
                     }
 
                     @Override
